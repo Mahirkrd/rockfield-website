@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* ── Rockfield design tokens ───────────────────────────────────────────
+   Tailwind v4: everything declared here becomes a utility.
+   e.g. --color-amber  →  bg-amber / text-amber / border-amber
+        --font-display →  font-display
+   ------------------------------------------------------------------ */
+@theme {
+  /* Brand palette */
+  --color-ink: #141410; /* near-black — text, dark sections */
+  --color-amber: #e5a027; /* accent only — used sparingly */
+  --color-concrete: #f3f1ec; /* default page background */
+  --color-paper: #fbfaf7; /* raised surfaces, cards */
+  --color-grey: #6e6b62; /* secondary text, hairlines */
+
+  /* Typefaces */
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  /* Sharp corners are the house style: no `rounded-*` unless a shape
+     genuinely demands it (status dots, avatars). */
+  html {
+    -webkit-text-size-adjust: 100%; /* stop iOS inflating text in landscape */
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-concrete);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Headlines are Archivo, tight and uppercase. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background-color: var(--color-amber);
+    color: var(--color-ink);
+  }
+
+  /* Visible, on-brand keyboard focus everywhere. */
+  :focus-visible {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Signature motif: the logo's diagonal amber slash. */
+  .slash {
+    background-image: linear-gradient(
+      115deg,
+      transparent 0%,
+      transparent 46%,
+      var(--color-amber) 46%,
+      var(--color-amber) 100%
+    );
+  }
+}
