@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone, Clock, ArrowUpRight } from "lucide-react";
+import { Mail, MapPin, Clock, ArrowUpRight } from "lucide-react";
 import { Logo } from "./Logo";
 import { darkSurfaceLogoSrc } from "@/lib/logo";
 import { COMPANY, CONTACT, EMAILS, NAV_LINKS } from "@/data/site";
@@ -86,25 +86,17 @@ export function Footer() {
                   className="mt-0.5 h-4 w-4 shrink-0 text-grey"
                   aria-hidden="true"
                 />
-                <address className="not-italic leading-relaxed">
-                  {CONTACT.addressLines.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
+                <address className="min-w-0 not-italic leading-relaxed">
+                  <a
+                    href={CONTACT.mapsHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="break-words transition-colors hover:text-amber"
+                  >
+                    {CONTACT.address}
+                    <span className="sr-only"> (opens in Google Maps)</span>
+                  </a>
                 </address>
-              </li>
-              <li className="flex gap-3">
-                <Phone
-                  className="mt-0.5 h-4 w-4 shrink-0 text-grey"
-                  aria-hidden="true"
-                />
-                <a
-                  href={CONTACT.phoneHref}
-                  className="transition-colors hover:text-amber"
-                >
-                  {CONTACT.phone}
-                </a>
               </li>
               {/* All three inboxes, spec-sheet style: mono role, then address */}
               <li className="flex gap-3">

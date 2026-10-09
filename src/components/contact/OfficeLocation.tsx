@@ -40,17 +40,21 @@ export function OfficeLocation() {
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-amber">
           Head Office
         </p>
-        <address className="mt-2 not-italic text-sm leading-relaxed text-paper/80">
-          {CONTACT.addressLines.map((line) => (
-            <span key={line} className="block">
-              {line}
-            </span>
-          ))}
-        </address>
-        <p className="mt-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.15em] text-paper/40">
-          <Navigation className="h-3.5 w-3.5" aria-hidden="true" />
-          Directions to follow
-        </p>
+        {/* Address and the Maps prompt are one link, so there is one tap target */}
+        <a
+          href={CONTACT.mapsHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group mt-2 block"
+        >
+          <address className="break-words not-italic text-sm leading-relaxed text-paper/80 transition-colors group-hover:text-amber">
+            {CONTACT.address}
+          </address>
+          <span className="mt-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.15em] text-paper/40 transition-colors group-hover:text-amber">
+            <Navigation className="h-3.5 w-3.5" aria-hidden="true" />
+            Open in Google Maps
+          </span>
+        </a>
       </div>
     </div>
   );

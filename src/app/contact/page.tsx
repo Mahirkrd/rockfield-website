@@ -6,6 +6,7 @@ import { ContactDetails } from "@/components/contact/ContactDetails";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { OfficeLocation } from "@/components/contact/OfficeLocation";
 import { EmailCards } from "@/components/contact/EmailCards";
+import { LeadershipContacts } from "@/components/contact/LeadershipContacts";
 import { CONTACT } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -23,6 +24,8 @@ export default function ContactPage() {
         intro="Send us the scope, the location and a rough timeline. We will come back with a costed proposal, usually within three working days."
         image={OFFICE_IMAGE}
       />
+
+      <LeadershipContacts />
 
       {/* Details + form */}
       <section

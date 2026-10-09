@@ -34,9 +34,15 @@ export function Team() {
           </p>
         </Reveal>
 
-        <ul className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-6">
+        {/* Three across from lg, two from sm, one on phones. A short last row
+            centres itself, so five cards read as a deliberate 3 + 2 (and
+            2 + 2 + 1 on tablets) instead of leaving an orphan. */}
+        <ul className="mt-10 flex flex-wrap justify-center gap-6 sm:mt-12 sm:gap-5 lg:gap-6">
           {COMPANY_TEAM.members.map((member, i) => (
-            <li key={member.id}>
+            <li
+              key={member.id}
+              className="w-full sm:w-[calc((100%_-_1.25rem)/2)] lg:w-[calc((100%_-_3rem)/3)]"
+            >
               {/* h-full carries the row height down to the card, so a role
                   that wraps to two lines doesn't leave a ragged row */}
               <Reveal delay={120 + i * 70} className="h-full">
@@ -46,7 +52,7 @@ export function Team() {
                     <PlateImage
                       src={member.image}
                       alt={member.imageAlt}
-                      sizes="(min-width: 1024px) 264px, (min-width: 640px) 46vw, 92vw"
+                      sizes="(min-width: 1024px) 350px, (min-width: 640px) 46vw, 92vw"
                     />
                     <span
                       aria-hidden

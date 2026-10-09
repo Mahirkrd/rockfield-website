@@ -1,17 +1,14 @@
-import { Clock, MapPin, Phone } from "lucide-react";
+import { Clock, MapPin } from "lucide-react";
 import { CONTACT } from "@/data/site";
 
 const DETAILS = [
   {
-    icon: Phone,
-    label: "Phone",
-    value: CONTACT.phone,
-    href: CONTACT.phoneHref,
-  },
-  {
     icon: MapPin,
     label: "Address",
-    value: CONTACT.addressLines.join("\n"),
+    value: CONTACT.address,
+    href: CONTACT.mapsHref,
+    /** Leaves the site, so it opens in a new tab. */
+    external: true,
   },
   {
     icon: Clock,
@@ -45,13 +42,19 @@ export function ContactDetails() {
                 {detail.href ? (
                   <a
                     href={detail.href}
+                    {...(detail.external && {
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    })}
                     className="break-words transition-colors hover:text-amber"
                   >
                     {detail.value}
+                    {detail.external && (
+                      <span className="sr-only"> (opens in Google Maps)</span>
+                    )}
                   </a>
                 ) : (
-                  // Address keeps its line breaks
-                  <span className="whitespace-pre-line">{detail.value}</span>
+                  <span>{detail.value}</span>
                 )}
               </dd>
             </div>

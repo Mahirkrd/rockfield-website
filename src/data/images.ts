@@ -146,6 +146,8 @@ const TEMPORARY_SOURCES: Record<string, string> = {
   "/images/team-4.jpg": `${UNSPLASH}/photo-1516216628859-9bccecab13ca${Q}`,
 
   // ── Company page team (own slots, same stand-ins as the leadership) ─────
+  // CEO: the engineer-at-the-drawings shot also used for about.jpg
+  "/images/company-team-ceo.jpg": `${UNSPLASH}/photo-1581092446327-9b52bd1570c2${Q}`,
   "/images/company-team-1.jpg": `${UNSPLASH}/photo-1621905252507-b35492cc74b4${Q}`,
   "/images/company-team-2.jpg": `${UNSPLASH}/photo-1618090584176-7132b9911657${Q}`,
   "/images/company-team-3.jpg": `${UNSPLASH}/photo-1503387837-b154d5074bd2${Q}`,

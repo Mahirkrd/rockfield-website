@@ -239,14 +239,8 @@ export function Header({ darkLogoSrc = LOGO_SRC }: HeaderProps) {
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
           </Link>
 
-          {/* Both rows are full-width 44px targets for thumbs */}
+          {/* A full-width 44px target for thumbs */}
           <div className="mt-8 font-mono text-xs uppercase tracking-[0.15em] text-paper/60">
-            <a
-              href={CONTACT.phoneHref}
-              className="flex min-h-[44px] items-center transition-colors hover:text-amber"
-            >
-              {CONTACT.phone}
-            </a>
             <a
               href={CONTACT.emailHref}
               className="flex min-h-[44px] items-center normal-case transition-colors hover:text-amber"

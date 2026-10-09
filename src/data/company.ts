@@ -56,6 +56,15 @@ export const COMPANY_TEAM: { intro: string; members: CompanyTeamMember[] } = {
     "Rockfield is led by an experienced team that combines technical expertise with hands-on delivery. Our people are the foundation of every project we complete.",
   members: [
     {
+      id: "ceo",
+      name: "[Full Name]",
+      role: "CEO",
+      bio: "Sets the company’s vision and strategy, and holds overall responsibility for delivery, growth, and client trust.",
+      image: "/images/company-team-ceo.jpg",
+      imageAlt:
+        "A site engineer in a hi-vis jacket walking a colleague through a set of drawings spread across a site-office table.",
+    },
+    {
       id: "general-manager",
       name: "[Full Name]",
       role: "General Manager",

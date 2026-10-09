@@ -1,6 +1,7 @@
 /** Site-wide content. Moves to the database later. */
 
 import { COMPANY_SECTIONS } from "@/data/company";
+import { LEADERSHIP_CONTACTS } from "@/data/contacts";
 import { QHSE_SECTIONS } from "@/data/qhse";
 
 export type NavLink = { href: string; label: string };
@@ -53,11 +54,19 @@ export const HEADER_NAV: NavItem[] = NAV_LINKS.flatMap((link) => {
   return [link];
 });
 
-/** Phone and address are still placeholders — replace before launch. */
+/** Head office, exactly as supplied. Rendered as one line that wraps. */
+const ADDRESS = "Erbil | 100m Road, Naz Naz, Opposite Pavilion, F4/A2";
+
+/**
+ * No main switchboard number yet — the direct lines are the leadership
+ * contacts in src/data/contacts.ts.
+ */
 export const CONTACT = {
-  addressLines: ["Building 00, Street 000", "Industrial Area", "City, Country"],
-  phone: "+000 0000 0000",
-  phoneHref: "tel:+00000000000",
+  address: ADDRESS,
+  /** Google Maps search for the address (the pipe becomes a comma for the query). */
+  mapsHref: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    ADDRESS.replace(" | ", ", "),
+  )}`,
   /** Mirrors the primary entry in EMAILS below. */
   email: "info@rockfield-co.com",
   emailHref: "mailto:info@rockfield-co.com",
@@ -74,7 +83,11 @@ export type EmailContact = {
   primary?: boolean;
 };
 
-/** Business inboxes. Primary first; every surface renders them in this order. */
+/**
+ * Business inboxes. Primary first; every surface renders them in this order.
+ * The leadership inboxes come straight from src/data/contacts.ts, so each
+ * role and address is written once and shown the same way everywhere.
+ */
 export const EMAILS: EmailContact[] = [
   {
     label: "General Inquiries",
@@ -82,16 +95,11 @@ export const EMAILS: EmailContact[] = [
     address: "info@rockfield-co.com",
     primary: true,
   },
-  {
-    label: "General Manager",
-    shortLabel: "Manager",
-    address: "h.a@rockfield-co.com",
-  },
-  {
-    label: "Projects / Operations",
-    shortLabel: "Projects",
-    address: "s.m@rockfield-co.com",
-  },
+  ...LEADERSHIP_CONTACTS.map((contact) => ({
+    label: contact.role,
+    shortLabel: contact.role,
+    address: contact.email,
+  })),
 ];
 
 export const COMPANY = {
@@ -100,10 +108,10 @@ export const COMPANY = {
   tagline: "Built on solid ground.",
 } as const;
 
-/** Company facts shown in the About spec panel. Replace [City] before launch. */
+/** Company facts shown in the About spec panel. */
 export const COMPANY_SPEC: { label: string; value: string }[] = [
   { label: "Team active since", value: "2010" },
-  { label: "Headquarters", value: "[City]" },
+  { label: "Headquarters", value: "Erbil" },
   { label: "Team", value: "120+ specialists" },
   { label: "Coverage", value: "Nationwide" },
 ];

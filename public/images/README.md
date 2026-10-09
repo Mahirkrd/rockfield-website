@@ -53,8 +53,9 @@ individual — replace them with real portraits along with the bracketed names i
 
 ## Company team
 
-`company-team-1.jpg` … `company-team-4.jpg`, in the order the cards appear on
-the Company page (General Manager, Projects & Operations Manager, Technical /
-Engineering Lead, HSE / Quality Manager). Same 4:5 crop. These are separate
+`company-team-ceo.jpg`, then `company-team-1.jpg` … `company-team-4.jpg`, in
+the order the cards appear on the Company page (CEO, General Manager, Projects
+& Operations Manager, Technical / Engineering Lead, HSE / Quality Manager).
+Same 4:5 crop. These are separate
 from the leadership photos above, so each page can be updated on its own; the
 names and bios live in `src/data/company.ts`.
