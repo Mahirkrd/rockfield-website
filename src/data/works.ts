@@ -101,7 +101,8 @@ const SOURCE: CategorySource[] = [
     title: "Earthworks",
     short: "Earthworks",
     summary: ["Excavation, cut & fill", "Backfill & compaction", "Right of way construction"],
-    cover: { file: "excavation-cut-fill-06.jpg" },
+    // 06, the line of excavators, is the homepage hero instead.
+    cover: { file: "excavation-cut-fill-04.jpg" },
     types: [
       {
         slug: "excavation-cut-fill",

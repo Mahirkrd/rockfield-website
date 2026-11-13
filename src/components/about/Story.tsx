@@ -1,7 +1,7 @@
 import { Reveal } from "@/components/ui/Reveal";
 import { SpecPanel } from "@/components/ui/SpecPanel";
 import { PlateImage } from "@/components/ui/PlateImage";
-import { ABOUT_IMAGE } from "@/data/images";
+import { ABOUT_STORY_IMAGE } from "@/data/images";
 import { OUR_COMPANY } from "@/data/company";
 
 export function Story() {
@@ -39,8 +39,8 @@ export function Story() {
             {/* Fixed 4:3 box — the plate holds its size while the photo loads */}
             <figure className="relative aspect-[4/3] w-full overflow-hidden bg-ink">
               <PlateImage
-                src={ABOUT_IMAGE.src}
-                alt={ABOUT_IMAGE.alt}
+                src={ABOUT_STORY_IMAGE.src}
+                alt={ABOUT_STORY_IMAGE.alt}
                 sizes="(min-width: 1024px) 40vw, 92vw"
               />
               <figcaption className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-[0.2em] text-paper/60">

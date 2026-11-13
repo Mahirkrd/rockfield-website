@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
-import { PROCESS_IMAGE, imageSrc } from "@/data/images";
+import { PROCESS_IMAGE } from "@/data/images";
 
 const STEPS = [
   {
@@ -33,7 +33,7 @@ export function Process() {
       className="relative overflow-hidden bg-ink text-paper"
     >
       <Image
-        src={imageSrc(PROCESS_IMAGE.src)}
+        src={PROCESS_IMAGE.src}
         alt={PROCESS_IMAGE.alt}
         fill
         sizes="100vw"

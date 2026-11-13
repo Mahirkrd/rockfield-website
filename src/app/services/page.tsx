@@ -7,7 +7,7 @@ import { ServiceIcon } from "@/components/ui/ServiceIcon";
 import { PlateImage } from "@/components/ui/PlateImage";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { SERVICES } from "@/data/services";
-import { HERO_IMAGE } from "@/data/images";
+import { SERVICES_HERO_IMAGE } from "@/data/images";
 // The profile's "one contract, one accountable team" line, as under the stats.
 import { STATS_LINE } from "@/data/stats";
 
@@ -24,7 +24,7 @@ export default function ServicesPage() {
         eyebrow="What We Do"
         title="Full-scope construction services."
         intro={STATS_LINE}
-        image={HERO_IMAGE}
+        image={SERVICES_HERO_IMAGE}
       />
 
       <section
@@ -56,6 +56,7 @@ export default function ServicesPage() {
                       <PlateImage
                         src={service.image}
                         alt={service.imageAlt}
+                        objectPosition={service.imagePosition}
                         sizes="(min-width: 1024px) 568px, 92vw"
                         zoom
                       />

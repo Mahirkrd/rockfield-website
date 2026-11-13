@@ -42,6 +42,7 @@ export function Profile() {
             <PlateImage
               src={COMPANY_IMAGE.src}
               alt={COMPANY_IMAGE.alt}
+              objectPosition={COMPANY_IMAGE.position}
               sizes="(min-width: 1024px) 40vw, 92vw"
             />
             <figcaption className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-[0.2em] text-paper/60">

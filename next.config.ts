@@ -15,21 +15,8 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  images: {
-    /**
-     * TEMPORARY — only needed while the site points at Unsplash for artwork.
-     * Once the photos in src/data/images.ts have been downloaded into
-     * /public/images, delete this whole `images` block: local files under
-     * /public need no remote pattern.
-     */
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-        pathname: "/photo-**",
-      },
-    ],
-  },
+  // Every image is a local file under /public, so no remote image hosts are
+  // allowed.
 };
 
 export default nextConfig;

@@ -81,6 +81,7 @@ export function Hero() {
             <PlateImage
               src={HERO_IMAGE.src}
               alt={HERO_IMAGE.alt}
+              objectPosition={HERO_IMAGE.position}
               // Right-hand column above lg, full-bleed below it.
               sizes="(min-width: 1024px) 40vw, 100vw"
               // The one image on the site worth loading before it is scrolled to.

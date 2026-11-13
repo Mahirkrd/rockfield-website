@@ -24,10 +24,18 @@ export type Service = {
   included: string[];
   /** Our Works categories shown as this service's related works, in order. */
   works: WorkCategorySlug[];
-  /** Card and detail-page photo. Local path under /public — see src/data/images.ts. */
+  /**
+   * Card and masthead photo: a real site photo from one of the service's
+   * related works categories, never one of their covers (the related-works
+   * tiles show those on the same page). Checked in src/data/images.ts.
+   */
   image: string;
   /** Alt text for `image`. Describes the photo, not the service. */
   imageAlt: string;
+  /** CSS object-position for `image`, where its subject sits off centre. */
+  imagePosition?: string;
+  /** The "How we work" figure on the detail page — a second, different photo. */
+  figure: { src: string; alt: string; position?: string };
   href: string;
 };
 
@@ -52,9 +60,13 @@ export const SERVICES: Service[] = ([
       "As-built checks and documented handover",
     ],
     works: ["earthworks", "concrete-structures", "buildings-villas-fitout"],
-    image: "/images/service-general-contracting.jpg",
+    image: "/images/works/buildings-villas-fitout/painting-facades-rehab-06.jpg",
     imageAlt:
-      "A site team in hard hats and hi-vis working together at height on a structure.",
+      "A two-storey commercial building with a glazed front, scaffolding still up along its facade.",
+    figure: {
+      src: "/images/works/concrete-structures/concrete-formwork-rebar-03.jpg",
+      alt: "Braced timber and steel formwork for a concrete wall, beside its reinforcement cage.",
+    },
   },
   {
     id: "civil-infrastructure",
@@ -76,9 +88,14 @@ export const SERVICES: Service[] = ([
       "Re-sloping, gabion walls and riprap",
     ],
     works: ["earthworks", "road-works", "slopes-drainage", "pipelines-utilities"],
-    image: "/images/service-civil-infrastructure.jpg",
+    image: "/images/works/slopes-drainage/riprap-ditches-01.jpg",
     imageAlt:
-      "Excavators and dozers cutting and grading a new road alignment, seen from the air.",
+      "An excavator moving large stone for riprap across a drainage channel.",
+    imagePosition: "60% 50%",
+    figure: {
+      src: "/images/works/slopes-drainage/geotextile-lining-01.jpg",
+      alt: "A buried pipeline in a trench, wrapped in geotextile rock shield, with an excavator beyond.",
+    },
   },
   {
     id: "structural-concrete",
@@ -100,9 +117,13 @@ export const SERVICES: Service[] = ([
       "Structural steel erection and connections",
     ],
     works: ["concrete-structures"],
-    image: "/images/service-structural-concrete.jpg",
+    image: "/images/works/concrete-structures/concrete-formwork-rebar-01.jpg",
     imageAlt:
-      "Workers tying tall reinforcement cages for concrete columns.",
+      "Operators finishing a fresh concrete slab with power trowels, between rows of starter bars.",
+    figure: {
+      src: "/images/works/concrete-structures/concrete-formwork-rebar-05.jpg",
+      alt: "A large reinforcement mat fixed across a slab, ready for its pour.",
+    },
   },
   {
     id: "commercial-building",
@@ -123,9 +144,13 @@ export const SERVICES: Service[] = ([
       "QA/QC inspection and documented handover",
     ],
     works: ["buildings-villas-fitout", "concrete-structures"],
-    image: "/images/service-commercial-building.jpg",
+    image: "/images/works/buildings-villas-fitout/painting-facades-rehab-05.jpg",
     imageAlt:
-      "Office towers converging overhead, seen looking straight up from street level.",
+      "A worker fixing facade panels at first-floor level of a glazed commercial building.",
+    figure: {
+      src: "/images/works/buildings-villas-fitout/ceilings-mechanical-04.jpg",
+      alt: "Galvanised ductwork being installed on the roof of a commercial building.",
+    },
   },
   {
     id: "renovation-fit-out",
@@ -147,9 +172,13 @@ export const SERVICES: Service[] = ([
       "Mechanical and electrical upgrades",
     ],
     works: ["buildings-villas-fitout"],
-    image: "/images/service-renovation-fit-out.jpg",
+    image: "/images/works/buildings-villas-fitout/plastering-05.jpg",
     imageAlt:
-      "A worker cutting and fixing timber during the fit-out of an interior.",
+      "An interior wall finished with moulded gypsum panels, a worker completing the skirting.",
+    figure: {
+      src: "/images/works/buildings-villas-fitout/painting-facades-rehab-02.jpg",
+      alt: "A painter on a stepladder finishing the ceiling line of a bright, empty interior.",
+    },
   },
   {
     id: "project-management",
@@ -171,9 +200,17 @@ export const SERVICES: Service[] = ([
       "Weekly progress, cost and risk reporting",
     ],
     works: ["survey-engineering"],
-    image: "/images/service-project-management.jpg",
+    image: "/images/works/survey-engineering/survey-underground-detection-02.jpg",
     imageAlt:
-      "A project manager marking up a set of construction drawings at a desk.",
+      "A surveyor in a hard hat and coveralls on site beside a GPS base station on its tripod.",
+    // Portrait photo: his head sits ~32% down, so this keeps head and torso
+    // in both the 16:9 card and the wider masthead band.
+    imagePosition: "50% 38%",
+    figure: {
+      src: "/images/works/pipelines-utilities/joints-hydrostatic-test-03.jpg",
+      alt: "A pressure gauge fitted to a water main for its hydrostatic test.",
+      position: "50% 40%",
+    },
   },
   {
     id: "roads-highways",
@@ -191,9 +228,13 @@ export const SERVICES: Service[] = ([
       "Concrete kerbs and channels, safety signs and site fencing",
     ],
     works: ["road-works", "earthworks", "slopes-drainage"],
-    image: "/images/service-roads-highways.jpg",
+    image: "/images/works/earthworks/right-of-way-03.jpg",
     imageAlt:
-      "A paving crew in hard hats and hi-vis laying fresh asphalt at night, beside a painted give-way marking.",
+      "A wheel loader working a newly graded road corridor between hills.",
+    figure: {
+      src: "/images/works/road-works/asphalt-cutting-paving-03.jpg",
+      alt: "A compact machine fitted with an asphalt cutter working on an existing road.",
+    },
   },
   {
     id: "villa-construction",
@@ -213,9 +254,13 @@ export const SERVICES: Service[] = ([
       "External paving and works",
     ],
     works: ["buildings-villas-fitout"],
-    image: "/images/service-villa-construction.jpg",
+    image: "/images/works/buildings-villas-fitout/villa-construction-02.jpg",
     imageAlt:
-      "A modern two-storey villa with white render, timber-clad volumes and full-height glazing, behind an infinity pool and lawn.",
+      "A surveyor's level on its tripod in front of a two-storey villa under construction.",
+    figure: {
+      src: "/images/works/buildings-villas-fitout/villa-construction-04.jpg",
+      alt: "Two workers finishing the ceiling of a villa interior.",
+    },
   },
   {
     id: "oil-gas",
@@ -234,9 +279,15 @@ export const SERVICES: Service[] = ([
       "Work planned around site safety requirements",
     ],
     works: ["oil-gas", "pipelines-utilities"],
-    image: "/images/service-oil-gas.jpg",
+    image: "/images/works/pipelines-utilities/trench-excavation-02.jpg",
     imageAlt:
-      "A refinery's distillation columns, stacks and pipe racks under a heavy grey sky.",
+      "A long pipeline trench with lengths of pipe strung along its edge and an excavator at work beyond.",
+    imagePosition: "50% 40%",
+    figure: {
+      src: "/images/works/oil-gas/oil-gas-support-01.jpg",
+      alt: "A new caged access ladder fixed to the concrete wall of an oil pit.",
+      position: "50% 8%",
+    },
   },
 ] satisfies Omit<Service, "href">[]).map((service) => ({
   ...service,

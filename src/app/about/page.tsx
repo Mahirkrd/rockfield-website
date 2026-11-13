@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/ui/PageHero";
-import { ABOUT_IMAGE } from "@/data/images";
+import { ABOUT_HERO_IMAGE } from "@/data/images";
 import { Story } from "@/components/about/Story";
 import { Mission } from "@/components/about/Mission";
 import { Values } from "@/components/about/Values";
@@ -20,7 +20,7 @@ export default function AboutPage() {
         eyebrow="About Us"
         title="A contractor built to be relied on."
         intro="Our team has been active in the construction sector since 2010."
-        image={ABOUT_IMAGE}
+        image={ABOUT_HERO_IMAGE}
       />
       <Story />
       <Mission />

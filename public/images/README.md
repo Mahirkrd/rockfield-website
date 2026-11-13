@@ -1,41 +1,33 @@
 # Site photography
 
-Drop the real photos in here using these exact filenames. Until a file exists,
-the site loads a temporary Unsplash construction photo in its place — see
-`src/data/images.ts` for the URL behind each one and the two-step swap.
+Every photo on the site is one of Rockfield's own site photos, in `works/`
+— one folder per Our Works category. `docs/works-photos.json` lists every file
+with its category, work type, size and whether it is a design visualisation
+(a render). There is no stock photography and nothing is loaded from another
+host.
 
-Landscape, long edge around 2000px, JPEG quality ~80. `next/image` resizes and
-re-encodes to WebP from there, so anything larger is wasted bytes in git.
+## Where each photo is used
 
-## Landmarks
+- **Our Works pages** (`/works`, `/works/<category>`) show all of them, built
+  from `src/data/works.ts`. Each category's cover is chosen there.
+- **Every other slot** — the homepage hero and "How we work" band, the
+  page mastheads, the About, Company and QHSE plates, the fleet photo — is set
+  in `src/data/images.ts`.
+- **Service photos** (card, masthead and the "How we work" figure on each
+  service page) are set per service in `src/data/services.ts`.
 
-| File           | What it shows                          | Used on                          |
-| -------------- | -------------------------------------- | -------------------------------- |
-| `hero.jpg`     | Wide construction site / tower cranes   | Home hero, Services + QHSE mastheads |
-| `about.jpg`    | Engineers with drawings on site         | About masthead and "Our story"   |
-| `process.jpg`  | Structure and cranes (used very dark)   | Home "How we work" background, Company masthead |
-| `office.jpg`   | Head-office building exterior           | Contact masthead and location plate |
-| `company.jpg`  | Building under construction, cranes     | Company page "Our company" plate |
-| `qhse.jpg`     | Site team in hard hats and hi-vis       | QHSE page "HSE" plate            |
+## Rules the code checks
 
-## Services
+- A slot may only use a file listed in `docs/works-photos.json`.
+- A design visualisation (`designRender: true`) is never used where a real
+  site photo is implied — only in the Our Works galleries, where it carries a
+  "Design visualisation" badge.
 
-One photo per discipline, named by slug:
+Both are checked at build time in `src/data/images.ts`; a wrong path or a
+render in a photo slot fails the build.
 
-`service-general-contracting.jpg`, `service-civil-infrastructure.jpg`,
-`service-structural-concrete.jpg`, `service-commercial-building.jpg`,
-`service-renovation-fit-out.jpg`, `service-project-management.jpg`,
-`service-roads-highways.jpg`, `service-villa-construction.jpg`,
-`service-oil-gas.jpg`
+## Adding photos
 
-## Works photography
-
-`works/` holds the real project photos from the approved company profile, one
-folder per work category. `docs/works-photos.json` lists every file with its
-category, work type and size. These are served straight from here and need no
-entry in `src/data/images.ts`'s temporary list.
-
-All of them appear on the Our Works pages (`/works` and `/works/<category>`),
-built from `src/data/works.ts`. The fleet table on the Company page also uses
-`works/earthworks/excavation-cut-fill-01.jpg` (`FLEET_IMAGE` in
-`src/data/images.ts`).
+Landscape where possible, long edge around 1600px, JPEG quality ~80;
+`next/image` resizes and re-encodes from there. Add the file to its category
+folder and to `docs/works-photos.json`, then to `src/data/works.ts`.

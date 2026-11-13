@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/ui/PageHero";
 import { CtaBand } from "@/components/ui/CtaBand";
-import { HERO_IMAGE } from "@/data/images";
+import { QHSE_HERO_IMAGE } from "@/data/images";
 import { QHSE_STATEMENT } from "@/data/qhse";
 import { QualityPolicy } from "@/components/qhse/QualityPolicy";
 import { HsePolicy } from "@/components/qhse/HsePolicy";
@@ -20,7 +20,7 @@ export default function QhsePage() {
         eyebrow="QHSE"
         title="Quality, Health, Safety & Environment"
         intro={QHSE_STATEMENT}
-        image={HERO_IMAGE}
+        image={QHSE_HERO_IMAGE}
       />
       <QualityPolicy />
       <HsePolicy />

@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
-import { imageSrc } from "@/data/images";
+import type { SiteImage } from "@/data/images";
 
 /** Letters in the title's longest word. */
 function longestWord(title: string) {
@@ -12,8 +12,8 @@ type PageHeroProps = {
   eyebrow: string;
   title: string;
   intro?: string;
-  /** Photograph behind the masthead. Local path under /public plus its alt. */
-  image?: { src: string; alt: string };
+  /** Photograph behind the masthead: local path, alt, optional crop position. */
+  image?: SiteImage;
 };
 
 /** Standard dark masthead for every inner page. */
@@ -23,12 +23,13 @@ export function PageHero({ eyebrow, title, intro, image }: PageHeroProps) {
       {image && (
         <>
           <Image
-            src={imageSrc(image.src)}
+            src={image.src}
             alt={image.alt}
             fill
             sizes="100vw"
             // Top of every inner page, so it is worth fetching immediately.
             preload
+            style={image.position ? { objectPosition: image.position } : undefined}
             className="object-cover"
           />
           {/* Ink veil: the masthead type is paper-white and must stay legible

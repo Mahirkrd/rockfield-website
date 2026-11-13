@@ -38,6 +38,7 @@ export function HsePolicy() {
               <PlateImage
                 src={QHSE_IMAGE.src}
                 alt={QHSE_IMAGE.alt}
+                objectPosition={QHSE_IMAGE.position}
                 sizes="(min-width: 832px) 768px, 92vw"
               />
               <figcaption className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-[0.2em] text-paper/60">

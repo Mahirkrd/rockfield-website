@@ -1,79 +1,79 @@
 /**
- * Image registry — the one file to touch when swapping artwork.
+ * Image registry: every photo slot outside the Our Works pages, each filled
+ * with one of Rockfield's own site photos from /public/images/works/
+ * (listed in docs/works-photos.json). Nothing here is stock photography.
  *
- * Every image on the site is referenced by its LOCAL path (`/images/hero.jpg`
- * and friends). Until those files exist, `TEMPORARY_SOURCES` below redirects
- * each path to a free, license-safe construction photo on Unsplash so the site
- * looks real straight away.
+ * The photos are spread so that no page shows the same one twice, and no
+ * slot repeats a category cover (those appear on the homepage and the
+ * service pages already). Service photos live with their service in
+ * src/data/services.ts.
  *
- * ─── TODO BEFORE LAUNCH ────────────────────────────────────────────────────
- * 1. Open each Unsplash URL below in a browser (drop the `?...` query string)
- *    and download the full-size photo — or, better, replace it with your own
- *    site photography.
- * 2. Save the files into /public/images using exactly the names in the keys.
- *    Long edge ~2000px, JPEG quality ~80 is plenty — next/image resizes and
- *    re-encodes from there.
- * 3. Delete an entry from TEMPORARY_SOURCES and that image is instantly served
- *    from /public instead. Delete all of them, then also delete the `images`
- *    block in next.config.ts — nothing remote is loaded any more.
- *
- * A handful of Unsplash URLs repeat across entries where two slots genuinely
- * want the same subject (earthworks, reinforcement, the office exterior). Each
- * still has its own local filename, so giving them different real photos later
- * needs no code change.
- *
- * Unsplash photos are free to use commercially without permission or credit
- * (https://unsplash.com/license); attribution is appreciated but not required.
- * ───────────────────────────────────────────────────────────────────────────
+ * `position` is a CSS object-position for photos whose subject sits off
+ * centre — checked at 360px and 1440px. Every slot, services included, is
+ * verified at build time against the works data below: the build fails if a
+ * path is not one of the works photos, or is a design visualisation (render)
+ * standing in for real work.
  */
+
+import { SERVICES } from "@/data/services";
+import { WORK_CATEGORIES } from "@/data/works";
 
 /** Local path + the alt text that travels with the image. */
 export type SiteImage = {
-  /** Path under /public — always the local file, never the remote URL. */
+  /** Path under /public. */
   src: string;
   /** Describes the photo, not the page. Never empty: these are content. */
   alt: string;
+  /** CSS object-position, where the subject sits off centre. */
+  position?: string;
 };
 
+/** Home hero plate: the line of excavators working a cut. */
 export const HERO_IMAGE: SiteImage = {
-  src: "/images/hero.jpg",
-  alt: "Tower cranes standing over a cluster of high-rise buildings under construction.",
+  src: "/images/works/earthworks/excavation-cut-fill-06.jpg",
+  alt: "A line of orange excavators working along a cleared, graded cut beneath a wooded hillside.",
+  // The nearest, largest machines sit right of centre; the tall desktop
+  // plate keeps them in frame.
+  position: "72% 50%",
 };
 
-export const ABOUT_IMAGE: SiteImage = {
-  src: "/images/about.jpg",
-  alt: "A site engineer in a hi-vis jacket walking a colleague through a set of drawings spread across a site-office table.",
-};
-
-/** Backdrop for the dark "how we work" band. */
+/** Home "How we work" band — texture under a heavy ink veil. */
 export const PROCESS_IMAGE: SiteImage = {
-  src: "/images/process.jpg",
-  alt: "A high-rise frame rising behind tower cranes, shot from below.",
+  src: "/images/works/concrete-structures/tower-formwork-rebar-02.jpg",
+  alt: "Rows of red steel props and yellow beams shoring a tower slab, between concrete columns.",
 };
 
-/** Head-office exterior — contact masthead and the location plate. */
-export const OFFICE_IMAGE: SiteImage = {
-  src: "/images/office.jpg",
-  alt: "The glass frontage of the head-office building seen from the street.",
+export const SERVICES_HERO_IMAGE: SiteImage = {
+  src: "/images/works/concrete-structures/tower-formwork-rebar-04.jpg",
+  alt: "A reinforcement mat fixed across a tower slab, with the town and hills beyond.",
 };
 
-/** Building under construction — the plate beside "Our Company". */
+export const ABOUT_HERO_IMAGE: SiteImage = {
+  src: "/images/works/buildings-villas-fitout/plastering-02.jpg",
+  alt: "Two workers applying cement plaster to an external wall on a residential site.",
+  position: "40% 50%",
+};
+
+/** The plate beside "Our Story" on the About page. */
+export const ABOUT_STORY_IMAGE: SiteImage = {
+  src: "/images/works/buildings-villas-fitout/masonry-05.jpg",
+  alt: "A team in hi-vis vests and hard hats laying a blockwork wall inside a building.",
+};
+
+export const COMPANY_HERO_IMAGE: SiteImage = {
+  src: "/images/works/buildings-villas-fitout/masonry-04.jpg",
+  alt: "A worker in a hi-vis vest laying blocks from a raised platform.",
+  position: "45% 35%",
+};
+
+/** The plate beside "Our Company" on the Company page. */
 export const COMPANY_IMAGE: SiteImage = {
-  src: "/images/company.jpg",
-  alt: "Tower cranes working above a high-rise wrapped in scaffolding and safety netting, with birds wheeling overhead.",
+  src: "/images/works/buildings-villas-fitout/ceilings-mechanical-01.jpg",
+  alt: "A crew on scaffolding fixing a curved gypsum ceiling bulkhead beside a glazed facade.",
+  position: "38% 50%",
 };
 
-/** Site team walking a finished deck — the plate in the QHSE page's HSE section. */
-export const QHSE_IMAGE: SiteImage = {
-  src: "/images/qhse.jpg",
-  alt: "Seven site staff in hard hats and hi-vis vests on a finished concrete deck, looking over rebar and conduit laid out for the next pour.",
-};
-
-/**
- * Real site photography from the company profile (docs/works-photos.json) —
- * served straight from /public, so it never needs a TEMPORARY_SOURCES entry.
- * Beside the fleet table on /company#fleet.
- */
+/** Beside the fleet table on the Company page. */
 export const FLEET_IMAGE: SiteImage & { caption: string } = {
   src: "/images/works/earthworks/excavation-cut-fill-01.jpg",
   alt: "A line of excavators fitted with hydraulic breakers working a rocky cut on a hillside, raising dust; one cab carries the DAEWOO name.",
@@ -81,46 +81,57 @@ export const FLEET_IMAGE: SiteImage & { caption: string } = {
   caption: "Excavation, cut & fill",
 };
 
-const UNSPLASH = "https://images.unsplash.com";
-/** Shared query string: format negotiation, sane crop, sensible source size. */
-const Q = "?auto=format&fit=crop&w=1600&q=80";
-
-/**
- * TEMPORARY Unsplash stand-ins, keyed by the local path each one covers.
- * Every photo here is a construction or engineering subject.
- */
-const TEMPORARY_SOURCES: Record<string, string> = {
-  // ── Landmarks ───────────────────────────────────────────────────────────
-  // Wide site, tower cranes over high-rise frames
-  "/images/hero.jpg": `${UNSPLASH}/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1920&q=80`,
-  // Site engineer and colleague over the drawings
-  "/images/about.jpg": `${UNSPLASH}/photo-1581092446327-9b52bd1570c2${Q}`,
-  // High-rise frame and cranes from below
-  "/images/process.jpg": `${UNSPLASH}/photo-1591955506264-3f5a6834570a${Q}`,
-  // Glass office frontage
-  "/images/office.jpg": `${UNSPLASH}/photo-1554435493-93422e8220c8${Q}`,
-  // Scaffolded high-rise under tower cranes
-  "/images/company.jpg": `${UNSPLASH}/photo-1429497419816-9ca5cfb4571a${Q}`,
-  // Site team in hard hats and hi-vis on a finished deck
-  "/images/qhse.jpg": `${UNSPLASH}/photo-1541888946425-d81bb19240f5${Q}`,
-
-  // ── Services ────────────────────────────────────────────────────────────
-  "/images/service-general-contracting.jpg": `${UNSPLASH}/photo-1516216628859-9bccecab13ca${Q}`,
-  "/images/service-civil-infrastructure.jpg": `${UNSPLASH}/photo-1517089596392-fb9a9033e05b${Q}`,
-  "/images/service-structural-concrete.jpg": `${UNSPLASH}/photo-1531834685032-c34bf0d84c77${Q}`,
-  "/images/service-commercial-building.jpg": `${UNSPLASH}/photo-1449157291145-7efd050a4d0e${Q}`,
-  "/images/service-renovation-fit-out.jpg": `${UNSPLASH}/photo-1618090584176-7132b9911657${Q}`,
-  "/images/service-project-management.jpg": `${UNSPLASH}/photo-1503387762-592deb58ef4e${Q}`,
-  "/images/service-roads-highways.jpg": `${UNSPLASH}/photo-1757030689760-3ec8be7326ae${Q}`,
-  "/images/service-villa-construction.jpg": `${UNSPLASH}/photo-1580587771525-78b9dba3b914${Q}`,
-  "/images/service-oil-gas.jpg": `${UNSPLASH}/photo-1516937941344-00b4e0337589${Q}`,
+export const QHSE_HERO_IMAGE: SiteImage = {
+  src: "/images/works/road-works/channels-signage-fencing-03.jpg",
+  alt: "A Rockfield caution sign — area under construction, watch for moving equipment — beside a site road.",
 };
 
-/**
- * Resolves a local image path to whatever should actually be loaded today.
- * Falls straight through to the local file once its TEMPORARY_SOURCES entry
- * is removed, so no component ever needs editing to complete the swap.
- */
-export function imageSrc(localPath: string): string {
-  return TEMPORARY_SOURCES[localPath] ?? localPath;
+/** The plate in the QHSE page's HSE section. */
+export const QHSE_IMAGE: SiteImage = {
+  src: "/images/works/road-works/channels-signage-fencing-04.jpg",
+  alt: "A Rockfield sign at a site entrance: personal protective equipment must be worn.",
+  position: "50% 45%",
+};
+
+/** Contact masthead. There is no photo of the office itself, so none is implied. */
+export const CONTACT_HERO_IMAGE: SiteImage = {
+  src: "/images/works/slopes-drainage/riprap-ditches-02.jpg",
+  alt: "An excavator placing stone riprap along a drainage ditch.",
+  position: "45% 50%",
+};
+
+/* ── Build-time check ─────────────────────────────────────────────────── */
+
+const WORKS_PHOTOS = new Map(
+  WORK_CATEGORIES.flatMap((category) =>
+    category.types.flatMap((type) => type.photos.map((p) => [p.src, p] as const)),
+  ),
+);
+
+const SLOTS: Record<string, string> = {
+  HERO_IMAGE: HERO_IMAGE.src,
+  PROCESS_IMAGE: PROCESS_IMAGE.src,
+  SERVICES_HERO_IMAGE: SERVICES_HERO_IMAGE.src,
+  ABOUT_HERO_IMAGE: ABOUT_HERO_IMAGE.src,
+  ABOUT_STORY_IMAGE: ABOUT_STORY_IMAGE.src,
+  COMPANY_HERO_IMAGE: COMPANY_HERO_IMAGE.src,
+  COMPANY_IMAGE: COMPANY_IMAGE.src,
+  FLEET_IMAGE: FLEET_IMAGE.src,
+  QHSE_HERO_IMAGE: QHSE_HERO_IMAGE.src,
+  QHSE_IMAGE: QHSE_IMAGE.src,
+  CONTACT_HERO_IMAGE: CONTACT_HERO_IMAGE.src,
+  ...Object.fromEntries(
+    SERVICES.flatMap((service) => [
+      [`${service.id} image`, service.image],
+      [`${service.id} figure`, service.figure.src],
+    ]),
+  ),
+};
+
+for (const [slot, src] of Object.entries(SLOTS)) {
+  const photo = WORKS_PHOTOS.get(src);
+  if (!photo) throw new Error(`${slot}: ${src} is not one of the works photos`);
+  if (photo.designRender) {
+    throw new Error(`${slot}: ${src} is a design visualisation, not a site photo`);
+  }
 }

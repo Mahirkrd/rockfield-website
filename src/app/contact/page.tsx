@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/ui/PageHero";
-import { OFFICE_IMAGE } from "@/data/images";
+import { CONTACT_HERO_IMAGE } from "@/data/images";
 import { Reveal } from "@/components/ui/Reveal";
 import { ContactDetails } from "@/components/contact/ContactDetails";
 import { ContactForm } from "@/components/contact/ContactForm";
@@ -22,7 +22,7 @@ export default function ContactPage() {
         eyebrow="Get In Touch"
         title="Tell us about the project."
         intro={ENQUIRY_LINE}
-        image={OFFICE_IMAGE}
+        image={CONTACT_HERO_IMAGE}
       />
 
       <LeadershipContacts />

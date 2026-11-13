@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { imageSrc } from "@/data/images";
 
 /** How hard the ink veil sits on the photo. */
 const OVERLAYS = {
@@ -11,7 +10,7 @@ const OVERLAYS = {
 } as const;
 
 type PlateImageProps = {
-  /** Local path under /public — resolved through the registry in src/data/images.ts. */
+  /** Local path under /public. */
   src: string;
   alt: string;
   /** Rendered width at each breakpoint, so the browser picks the right srcset entry. */
@@ -46,7 +45,7 @@ export function PlateImage({
   return (
     <>
       <Image
-        src={imageSrc(src)}
+        src={src}
         alt={alt}
         fill
         sizes={sizes}

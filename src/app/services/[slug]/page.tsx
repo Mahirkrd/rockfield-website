@@ -48,7 +48,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         eyebrow="Service"
         title={service.label}
         intro={service.summary}
-        image={{ src: service.image, alt: service.imageAlt }}
+        image={{
+          src: service.image,
+          alt: service.imageAlt,
+          position: service.imagePosition,
+        }}
       />
 
       {/* Description + scope checklist */}
@@ -86,8 +90,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               {/* Fixed 16:9 plate — the space is reserved before it loads */}
               <figure className="relative mt-6 aspect-[16/9] w-full overflow-hidden bg-ink sm:mt-8">
                 <PlateImage
-                  src={service.image}
-                  alt={service.imageAlt}
+                  src={service.figure.src}
+                  alt={service.figure.alt}
+                  objectPosition={service.figure.position}
                   sizes="(min-width: 1024px) 632px, 92vw"
                 />
                 <figcaption className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-[0.2em] text-paper/60">

@@ -48,6 +48,7 @@ export function Services() {
                       <PlateImage
                         src={service.image}
                         alt={service.imageAlt}
+                        objectPosition={service.imagePosition}
                         sizes="(min-width: 1024px) 368px, (min-width: 640px) 46vw, 92vw"
                         zoom
                       />
