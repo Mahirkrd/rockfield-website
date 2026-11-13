@@ -3,17 +3,23 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
-import { Menu, X, ArrowUpRight, ChevronDown } from "lucide-react";
+import { Menu, X, ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react";
 import { Logo, LOGO_SRC } from "./Logo";
 import { NavDropdown } from "./NavDropdown";
-import { CONTACT, HEADER_NAV, type NavLink } from "@/data/site";
+import type { NavItem, NavLink } from "@/data/site";
 
 type HeaderProps = {
   /** Artwork for the ink-backed mobile panel, resolved on the server. */
   darkLogoSrc?: string;
+  /**
+   * The navigation and the menu's contact lines, passed in from the server
+   * layout so that no site data module ships in this client bundle.
+   */
+  nav: NavItem[];
+  contact: { phone: string; phoneHref: string; email: string; emailHref: string };
 };
 
-export function Header({ darkLogoSrc = LOGO_SRC }: HeaderProps) {
+export function Header({ darkLogoSrc = LOGO_SRC, nav, contact }: HeaderProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -77,7 +83,7 @@ export function Header({ darkLogoSrc = LOGO_SRC }: HeaderProps) {
   // The menu opens with the current page's group already expanded, if any.
   const openMenu = () => {
     setExpanded(
-      HEADER_NAV.find((link) => link.children && isActive(link.href))?.href ??
+      nav.find((link) => link.children && isActive(link.href))?.href ??
         null,
     );
     setOpen(true);
@@ -108,12 +114,14 @@ export function Header({ darkLogoSrc = LOGO_SRC }: HeaderProps) {
             keep clear of the logo and the quote button at 1024px. */}
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center gap-6 xl:gap-8">
-            {HEADER_NAV.map((link) => (
+            {nav.map((link) => (
               <li key={link.href}>
                 {link.children ? (
                   <NavDropdown
                     label={link.label}
                     links={link.children}
+                    overview={link.overview}
+                    wide={link.wide}
                     active={isActive(link.href)}
                   />
                 ) : (
@@ -195,12 +203,13 @@ export function Header({ darkLogoSrc = LOGO_SRC }: HeaderProps) {
           className="relative flex-1 overflow-y-auto px-5 pb-8 pt-4"
         >
           <ul className="border-t border-paper/10">
-            {HEADER_NAV.map((link, i) => (
+            {nav.map((link, i) => (
               <li key={link.href} className="border-b border-paper/10">
                 {link.children ? (
                   <MobileNavGroup
                     label={link.label}
                     links={link.children}
+                    overview={link.overview}
                     index={i}
                     animate={open}
                     active={isActive(link.href)}
@@ -239,13 +248,19 @@ export function Header({ darkLogoSrc = LOGO_SRC }: HeaderProps) {
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
           </Link>
 
-          {/* A full-width 44px target for thumbs */}
+          {/* Full-width 44px targets for thumbs */}
           <div className="mt-8 font-mono text-xs uppercase tracking-[0.15em] text-paper/60">
             <a
-              href={CONTACT.emailHref}
+              href={contact.phoneHref}
+              className="flex min-h-[44px] items-center transition-colors hover:text-amber"
+            >
+              {contact.phone}
+            </a>
+            <a
+              href={contact.emailHref}
               className="flex min-h-[44px] items-center normal-case transition-colors hover:text-amber"
             >
-              {CONTACT.email}
+              {contact.email}
             </a>
           </div>
         </nav>
@@ -257,6 +272,8 @@ export function Header({ darkLogoSrc = LOGO_SRC }: HeaderProps) {
 type MobileNavGroupProps = {
   label: string;
   links: NavLink[];
+  /** The group's own overview page, linked at the foot of its list. */
+  overview?: NavLink;
   /** Position in the menu — drives the row number and the entrance stagger. */
   index: number;
   /** The panel is showing, so the entrance animation should run. */
@@ -272,6 +289,7 @@ type MobileNavGroupProps = {
 function MobileNavGroup({
   label,
   links,
+  overview,
   index,
   animate,
   active,
@@ -318,14 +336,15 @@ function MobileNavGroup({
             expanded ? "visible" : "invisible"
           }`}
         >
-          {/* Indented past the row number (2.1rem), in line with the label */}
+          {/* Indented past the row number (2.1rem), in line with the label.
+              Long labels wrap to two tight lines rather than overflow. */}
           <ul className="pb-5 pl-[2.1rem]">
             {links.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   onClick={onNavigate}
-                  className="flex min-h-[44px] items-center gap-3 font-display text-lg font-bold uppercase tracking-tight text-paper/70 transition-colors hover:text-amber focus-visible:-outline-offset-2"
+                  className="flex min-h-[44px] items-center gap-3 py-2 font-display text-lg font-bold uppercase leading-tight tracking-tight text-paper/70 transition-colors hover:text-amber focus-visible:-outline-offset-2"
                 >
                   <span aria-hidden className="text-amber">
                     /
@@ -334,6 +353,18 @@ function MobileNavGroup({
                 </Link>
               </li>
             ))}
+            {overview && (
+              <li>
+                <Link
+                  href={overview.href}
+                  onClick={onNavigate}
+                  className="mt-2 flex min-h-[44px] items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-amber transition-colors hover:text-paper focus-visible:-outline-offset-2"
+                >
+                  {overview.label}
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>

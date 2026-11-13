@@ -19,7 +19,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About Us"
         title="A contractor built to be relied on."
-        intro="A team with fifteen years of civil, structural and fit-out experience, accountable from first survey to final handover."
+        intro="Our team has been active in the construction sector since 2010."
         image={ABOUT_IMAGE}
       />
       <Story />

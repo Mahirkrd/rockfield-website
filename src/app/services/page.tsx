@@ -8,6 +8,8 @@ import { PlateImage } from "@/components/ui/PlateImage";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { SERVICES } from "@/data/services";
 import { HERO_IMAGE } from "@/data/images";
+// The profile's "one contract, one accountable team" line, as under the stats.
+import { STATS_LINE } from "@/data/stats";
 
 export const metadata: Metadata = {
   title: "Services — Rockfield",
@@ -21,7 +23,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="What We Do"
         title="Full-scope construction services."
-        intro="Nine disciplines, one contractor. Take a package or take the whole build — the accountability is the same either way."
+        intro={STATS_LINE}
         image={HERO_IMAGE}
       />
 

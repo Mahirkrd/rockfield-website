@@ -1,7 +1,8 @@
 import { Reveal } from "@/components/ui/Reveal";
-import { Commitments } from "@/components/qhse/Commitments";
-import { QHSE_SECTIONS, QUALITY_POLICY } from "@/data/qhse";
+import { ClauseList } from "@/components/qhse/ClauseList";
+import { QHSE_SECTIONS, QUALITY } from "@/data/qhse";
 
+/** Quality, from the approved profile's QHSE section. Anchor: #quality. */
 export function QualityPolicy() {
   const { id, title } = QHSE_SECTIONS.quality;
 
@@ -25,13 +26,7 @@ export function QualityPolicy() {
             </h2>
           </Reveal>
 
-          <Reveal delay={160}>
-            <p className="mt-6 text-base leading-relaxed text-grey sm:mt-8 sm:text-lg">
-              {QUALITY_POLICY.intro}
-            </p>
-          </Reveal>
-
-          <Commitments items={QUALITY_POLICY.commitments} />
+          <ClauseList items={QUALITY} delay={120} />
         </div>
       </div>
     </section>

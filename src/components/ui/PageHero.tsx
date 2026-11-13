@@ -1,6 +1,12 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { imageSrc } from "@/data/images";
+
+/** Letters in the title's longest word. */
+function longestWord(title: string) {
+  return Math.max(...title.split(/\s+/).map((word) => word.length));
+}
 
 type PageHeroProps = {
   eyebrow: string;
@@ -43,7 +49,8 @@ export function PageHero({ eyebrow, title, intro, image }: PageHeroProps) {
         className="slash pointer-events-none absolute -right-12 -top-16 h-32 w-32 opacity-90 sm:-right-16 sm:h-56 sm:w-56 lg:h-64 lg:w-64"
       />
 
-      <div className="relative mx-auto max-w-6xl px-5 pb-14 pt-20 sm:px-8 sm:pb-20 sm:pt-24 lg:pb-24 lg:pt-28">
+      {/* A size container, so the title can be sized against the column */}
+      <div className="@container relative mx-auto max-w-6xl px-5 pb-14 pt-20 sm:px-8 sm:pb-20 sm:pt-24 lg:pb-24 lg:pt-28">
         <Reveal>
           <p className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-amber sm:text-xs">
             <span aria-hidden className="h-px w-6 bg-amber sm:w-10" />
@@ -52,7 +59,14 @@ export function PageHero({ eyebrow, title, intro, image }: PageHeroProps) {
         </Reveal>
 
         <Reveal delay={80}>
-          <h1 className="mt-5 max-w-3xl text-[2.4rem] leading-[0.98] sm:mt-6 sm:text-5xl lg:text-6xl">
+          {/* On phones the title is 2.4rem, capped so its longest word still
+              fits the column (uppercase Archivo Bold runs ~0.68em a letter).
+              Only a very long word triggers the cap — "INFRASTRUCTURE" would
+              otherwise be clipped at 360px; every shorter title is unchanged. */}
+          <h1
+            style={{ "--longest-word": longestWord(title) } as CSSProperties}
+            className="mt-5 max-w-3xl text-[length:min(2.4rem,calc(100cqi/(var(--longest-word)*0.68)))] leading-[0.98] sm:mt-6 sm:text-5xl lg:text-6xl"
+          >
             {title}
           </h1>
         </Reveal>

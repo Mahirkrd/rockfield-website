@@ -3,6 +3,7 @@ import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { PlateImage } from "@/components/ui/PlateImage";
 import { HERO_IMAGE } from "@/data/images";
+import { COMPANY } from "@/data/site";
 
 export function Hero() {
   return (
@@ -43,9 +44,7 @@ export function Hero() {
 
           <Reveal delay={160}>
             <p className="mt-6 max-w-lg text-base leading-relaxed text-paper/70 sm:text-lg">
-              We build civil, structural and fit-out works at scale — delivered
-              on programme, on budget and to specification, on every site we
-              hand over.
+              {COMPANY.coverLine}.
             </p>
           </Reveal>
 
@@ -63,7 +62,7 @@ export function Hero() {
                 />
               </Link>
               <Link
-                href="/projects"
+                href="/works"
                 className="group inline-flex items-center justify-center gap-2 border border-paper/25 px-6 py-4 font-mono text-xs uppercase tracking-[0.15em] text-paper transition-colors hover:border-amber hover:text-amber sm:py-3.5"
               >
                 View our work

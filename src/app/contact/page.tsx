@@ -7,12 +7,12 @@ import { ContactForm } from "@/components/contact/ContactForm";
 import { OfficeLocation } from "@/components/contact/OfficeLocation";
 import { EmailCards } from "@/components/contact/EmailCards";
 import { LeadershipContacts } from "@/components/contact/LeadershipContacts";
-import { CONTACT } from "@/data/site";
+import { CONTACT, ENQUIRY_LINE } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Contact — Rockfield",
   description:
-    "Talk to Rockfield for General Contracting Ltd. about your project. Send us the scope and we will come back with a costed proposal.",
+    `Talk to Rockfield for General Contracting Ltd. about your project. ${ENQUIRY_LINE}`,
 };
 
 export default function ContactPage() {
@@ -21,7 +21,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Get In Touch"
         title="Tell us about the project."
-        intro="Send us the scope, the location and a rough timeline. We will come back with a costed proposal, usually within three working days."
+        intro={ENQUIRY_LINE}
         image={OFFICE_IMAGE}
       />
 
@@ -68,8 +68,7 @@ export default function ContactPage() {
                   >
                     {CONTACT.email}
                   </a>{" "}
-                  with the return date in the subject line and it will reach the
-                  estimating team the same day.
+                  with the return date in the subject line.
                 </p>
               </div>
             </Reveal>

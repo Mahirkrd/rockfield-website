@@ -9,6 +9,10 @@ import type { NavLink } from "@/data/site";
 type NavDropdownProps = {
   label: string;
   links: NavLink[];
+  /** The menu's own overview page, linked once at the foot of the panel. */
+  overview?: NavLink;
+  /** Widen the panel for long labels. */
+  wide?: boolean;
   /** The current route sits under this menu. */
   active: boolean;
 };
@@ -23,7 +27,13 @@ const HOVER_CLOSE_DELAY = 150;
  * click (Enter / Space), and ArrowDown / ArrowUp jump straight into the
  * links. Escape, a press outside, or tabbing away closes it.
  */
-export function NavDropdown({ label, links, active }: NavDropdownProps) {
+export function NavDropdown({
+  label,
+  links,
+  overview,
+  wide = false,
+  active,
+}: NavDropdownProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -200,14 +210,18 @@ export function NavDropdown({ label, links, active }: NavDropdownProps) {
           ref={menuRef}
           id={menuId}
           onKeyDown={onMenuKeyDown}
-          className="relative w-64 border border-ink/10 bg-paper before:absolute before:-inset-x-px before:-top-px before:h-0.5 before:bg-amber"
+          className={`relative border border-ink/10 bg-paper before:absolute before:-inset-x-px before:-top-px before:h-0.5 before:bg-amber ${
+            wide ? "w-80" : "w-64"
+          }`}
         >
           {links.map((link, i) => (
             <li key={link.href} className="border-b border-ink/10 last:border-b-0">
               <Link
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="group flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-concrete focus-visible:bg-concrete focus-visible:-outline-offset-2"
+                className={`group flex items-center gap-4 px-5 transition-colors hover:bg-concrete focus-visible:bg-concrete focus-visible:-outline-offset-2 ${
+                  wide ? "py-3" : "py-3.5"
+                }`}
               >
                 <span
                   aria-hidden
@@ -215,7 +229,7 @@ export function NavDropdown({ label, links, active }: NavDropdownProps) {
                 >
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="font-display text-sm font-bold uppercase tracking-tight text-ink">
+                <span className="font-display text-sm font-bold uppercase leading-tight tracking-tight text-ink">
                   {link.label}
                 </span>
                 <ArrowRight
@@ -225,6 +239,21 @@ export function NavDropdown({ label, links, active }: NavDropdownProps) {
               </Link>
             </li>
           ))}
+          {overview && (
+            <li>
+              <Link
+                href={overview.href}
+                onClick={() => setOpen(false)}
+                className="group flex items-center justify-between gap-4 bg-ink px-5 py-3.5 font-mono text-[11px] uppercase tracking-[0.18em] text-paper transition-colors hover:text-amber focus-visible:text-amber focus-visible:-outline-offset-2"
+              >
+                {overview.label}
+                <ArrowRight
+                  aria-hidden="true"
+                  className="h-3.5 w-3.5 shrink-0 text-amber transition-transform group-hover:translate-x-0.5"
+                />
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </div>

@@ -1,4 +1,8 @@
-/** QHSE-page content. Moves to the database later. */
+/**
+ * QHSE-page content — the approved profile, sections 16 and 17, in its own
+ * words (docs/profile-content.md). Where the profile runs a list together in
+ * one sentence, each item here is one row on the page; the words are unchanged.
+ */
 
 /**
  * The page's sections, in page order. Each `id` is the section's anchor on
@@ -6,41 +10,60 @@
  * from this list, using `menuLabel` where a headline is too long for it.
  */
 export const QHSE_SECTIONS = {
-  quality: { id: "quality", title: "Quality Policy" },
+  quality: { id: "quality", title: "Quality" },
   hse: {
     id: "hse",
-    title: "Health, Safety & Environment Policy",
-    menuLabel: "HSE Policy",
+    title: "Health, Safety & Environment",
+    menuLabel: "HSE",
   },
+  conduct: { id: "code-of-conduct", title: "Code of Conduct" },
 } as const;
 
-export type Policy = {
-  intro: string;
-  /** Numbered on the page, in this order. */
-  commitments: string[];
-};
+/**
+ * Word for word, always. The system is being aligned with these standards —
+ * never describe it, or Rockfield, as "certified".
+ */
+export const QHSE_STATEMENT =
+  "Our QHSE management system is being progressively aligned with ISO 45001, ISO 9001 and ISO 14001.";
 
-export const QUALITY_POLICY: Policy = {
-  intro:
-    "Rockfield is committed to delivering work that meets or exceeds the expectations of our clients and the requirements of every project. We achieve this through disciplined planning, clear standards, and continuous improvement across all our operations.",
-  commitments: [
-    "Deliver every project to agreed specifications, codes, and standards.",
-    "Plan and review each stage to prevent defects before they occur.",
-    "Work only with qualified teams and approved suppliers and materials.",
-    "Measure performance and act on lessons learned to improve continuously.",
-    "Hold every member of our team accountable for the quality of their work.",
-  ],
-};
+export const QUALITY: string[] = [
+  "Approved materials, drawings and specifications",
+  "Inspection and test records",
+  "Control of non-conforming work",
+];
 
-export const HSE_POLICY: Policy = {
-  intro:
-    "Rockfield is committed to protecting the health and safety of everyone involved in our projects and to minimising our impact on the environment. We believe all incidents are preventable, and we work to the principle that no task is so urgent that it cannot be done safely.",
-  commitments: [
-    "Provide a safe working environment and the training to maintain it.",
-    "Identify, assess, and control risks before work begins.",
-    "Comply with all applicable health, safety, and environmental regulations.",
-    "Supply and enforce the use of appropriate protective equipment.",
-    "Prevent pollution and manage waste responsibly on every site.",
-    "Review our performance regularly and improve our standards over time.",
-  ],
-};
+export const HEALTH_SAFETY: string[] = [
+  "Hazard identification and risk assessment",
+  "Permit-to-work",
+  "PPE",
+  "Toolbox talks",
+  "Emergency preparedness",
+];
+
+export const ENVIRONMENT: string[] = [
+  "Pollution prevention",
+  "Waste minimisation",
+  "Spill control",
+  "Protection of soil, water, air and communities",
+];
+
+export type Clause = { title: string; text: string };
+
+export const CODE_OF_CONDUCT: Clause[] = [
+  {
+    title: "Integrity",
+    text: "Zero tolerance for bribery, corruption, kickbacks and improper payments.",
+  },
+  {
+    title: "Respect",
+    text: "Equal opportunity, and zero tolerance for harassment, bullying and abuse.",
+  },
+  {
+    title: "Confidentiality",
+    text: "Protection of tender, contract, financial and client information.",
+  },
+  {
+    title: "Stop Work Authority",
+    text: "Anyone may stop work in a serious danger, with no retaliation.",
+  },
+];

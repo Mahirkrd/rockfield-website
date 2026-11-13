@@ -5,13 +5,14 @@ import { PROCESS_IMAGE } from "@/data/images";
 import { Profile } from "@/components/company/Profile";
 import { Vision } from "@/components/company/Vision";
 import { Mission } from "@/components/company/Mission";
-import { Team } from "@/components/company/Team";
-import { Clients } from "@/components/company/Clients";
+import { Organisation } from "@/components/company/Organisation";
+import { Disciplines } from "@/components/company/Disciplines";
+import { Fleet } from "@/components/company/Fleet";
 
 export const metadata: Metadata = {
   title: "Company — Rockfield",
   description:
-    "Rockfield for General Contracting Ltd. — our company, vision, mission, team and clients.",
+    "Rockfield for General Contracting Ltd. — our company, vision, mission, organisation, disciplines and fleet.",
 };
 
 export default function CompanyPage() {
@@ -20,14 +21,15 @@ export default function CompanyPage() {
       <PageHero
         eyebrow="Company"
         title="A dependable partner, from engineering to handover."
-        intro="Who we are, where we are headed, and the people and clients behind every project."
+        intro="Who we are, where we are headed, and the organisation, disciplines and fleet behind our work."
         image={PROCESS_IMAGE}
       />
       <Profile />
       <Vision />
       <Mission />
-      <Team />
-      <Clients />
+      <Organisation />
+      <Disciplines />
+      <Fleet />
       <CtaBand />
     </>
   );

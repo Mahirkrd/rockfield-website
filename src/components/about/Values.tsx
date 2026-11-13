@@ -1,27 +1,29 @@
 import {
+  BadgeCheck,
   FileCheck,
-  Hammer,
-  Handshake,
-  Leaf,
-  Scale,
+  RefreshCw,
   ShieldCheck,
   type LucideIcon,
 } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
-import { VALUES, type Value } from "@/data/about";
+import { COMMITMENTS, type Commitment } from "@/data/about";
 
-const ICONS: Record<Value["icon"], LucideIcon> = {
-  integrity: Scale,
+// Safety and quality reuse the icons the mission's values use just above.
+const ICONS: Record<Commitment["icon"], LucideIcon> = {
   safety: ShieldCheck,
-  craft: Hammer,
-  accountability: FileCheck,
-  partnership: Handshake,
-  stewardship: Leaf,
+  quality: BadgeCheck,
+  compliance: FileCheck,
+  improvement: RefreshCw,
 };
 
+/** The About page's company commitments. */
 export function Values() {
   return (
-    <section id="values" aria-labelledby="values-heading" className="bg-paper">
+    <section
+      id="commitments"
+      aria-labelledby="commitments-heading"
+      className="bg-paper"
+    >
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24 lg:py-28">
         <Reveal>
           <p className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-grey sm:text-xs">
@@ -32,20 +34,27 @@ export function Values() {
 
         <Reveal delay={80}>
           <h2
-            id="values-heading"
+            id="commitments-heading"
             className="mt-5 max-w-2xl text-3xl leading-[1.02] sm:mt-6 sm:text-4xl lg:text-5xl"
           >
-            Six things we will not trade away.
+            Our Commitments
           </h2>
         </Reveal>
 
-        <ul className="mt-10 grid grid-cols-1 gap-8 sm:mt-12 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-3 lg:gap-8">
-          {VALUES.map((value, i) => {
-            const Icon = ICONS[value.icon];
+        <Reveal delay={160}>
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-grey sm:mt-8 sm:text-lg">
+            {COMMITMENTS.intro}
+          </p>
+        </Reveal>
+
+        {/* Four across from lg, matching Why Rockfield on the homepage */}
+        <ul className="mt-10 grid grid-cols-1 gap-8 sm:mt-12 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-4 lg:gap-8">
+          {COMMITMENTS.items.map((item, i) => {
+            const Icon = ICONS[item.icon];
 
             return (
-              <li key={value.title}>
-                <Reveal delay={120 + i * 70}>
+              <li key={item.title}>
+                <Reveal delay={200 + i * 70}>
                   <div className="border-t border-ink/15 pt-6">
                     <Icon
                       className="h-8 w-8 text-amber"
@@ -53,10 +62,10 @@ export function Values() {
                       aria-hidden="true"
                     />
                     <h3 className="mt-5 text-lg leading-tight sm:text-xl">
-                      {value.title}
+                      {item.title}
                     </h3>
                     <p className="mt-2.5 text-sm leading-relaxed text-grey">
-                      {value.text}
+                      {item.text}
                     </p>
                   </div>
                 </Reveal>

@@ -1,6 +1,9 @@
-import { COMPANY_SPEC } from "@/data/site";
+import { STATS } from "@/data/stats";
 
-/** Dark spec-sheet plate. Shared by the homepage About and the About page. */
+/**
+ * Dark spec-sheet plate. Shared by the homepage About and the About page.
+ * Its rows are the same "at a glance" figures as the stat strip.
+ */
 export function SpecPanel({ title = "Company Spec" }: { title?: string }) {
   return (
     <div className="relative overflow-hidden bg-ink text-paper">
@@ -14,16 +17,17 @@ export function SpecPanel({ title = "Company Spec" }: { title?: string }) {
       </p>
 
       <dl className="relative">
-        {COMPANY_SPEC.map((row) => (
+        {STATS.map((stat) => (
           <div
-            key={row.label}
+            key={stat.label}
             className="flex items-baseline justify-between gap-4 border-b border-paper/10 px-5 py-4 last:border-b-0 sm:px-6 sm:py-5"
           >
             <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-grey sm:text-xs">
-              {row.label}
+              {stat.label}
             </dt>
             <dd className="text-right font-display text-sm font-bold uppercase tracking-tight sm:text-base">
-              {row.value}
+              {stat.value}
+              {stat.suffix}
             </dd>
           </div>
         ))}

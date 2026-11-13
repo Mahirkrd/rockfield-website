@@ -1,14 +1,6 @@
-import { BadgeCheck, Scale, ShieldCheck, type LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import { MissionPrinciples } from "@/components/ui/MissionPrinciples";
 import { COMPANY_MISSION, COMPANY_SECTIONS } from "@/data/company";
-
-type Principle = (typeof COMPANY_MISSION.principles)[number];
-
-const ICONS: Record<Principle, LucideIcon> = {
-  Quality: BadgeCheck,
-  Safety: ShieldCheck,
-  Integrity: Scale,
-};
 
 export function Mission() {
   const { id, title } = COMPANY_SECTIONS.mission;
@@ -38,35 +30,7 @@ export function Mission() {
           </p>
         </Reveal>
 
-        {/* The three principles the statement names */}
-        <Reveal delay={220}>
-          <h3 className="mt-10 font-mono text-[11px] uppercase tracking-[0.2em] text-grey sm:mt-12">
-            Guided by
-          </h3>
-        </Reveal>
-
-        <ul className="mt-5 grid max-w-3xl grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-          {COMPANY_MISSION.principles.map((principle, i) => {
-            const Icon = ICONS[principle];
-
-            return (
-              <li key={principle}>
-                <Reveal delay={260 + i * 80}>
-                  <div className="border-t border-ink/15 pt-5">
-                    <Icon
-                      className="h-7 w-7 text-amber sm:h-8 sm:w-8"
-                      strokeWidth={1.5}
-                      aria-hidden="true"
-                    />
-                    <span className="mt-4 block font-display text-sm font-bold uppercase leading-tight tracking-tight sm:text-lg lg:text-xl">
-                      {principle}
-                    </span>
-                  </div>
-                </Reveal>
-              </li>
-            );
-          })}
-        </ul>
+        <MissionPrinciples delay={220} />
       </div>
     </section>
   );

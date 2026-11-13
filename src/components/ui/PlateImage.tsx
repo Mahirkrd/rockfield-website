@@ -21,6 +21,8 @@ type PlateImageProps = {
   overlay?: keyof typeof OVERLAYS;
   /** Slow zoom when an ancestor `.group` is hovered. */
   zoom?: boolean;
+  /** CSS object-position, for a photo whose subject sits off-centre. */
+  objectPosition?: string;
 };
 
 /**
@@ -39,6 +41,7 @@ export function PlateImage({
   preload = false,
   overlay = "subtle",
   zoom = false,
+  objectPosition,
 }: PlateImageProps) {
   return (
     <>
@@ -49,6 +52,7 @@ export function PlateImage({
         sizes={sizes}
         // `preload` replaces the deprecated `priority` prop in Next 16.
         preload={preload}
+        style={objectPosition ? { objectPosition } : undefined}
         className={`object-cover ${
           zoom
             ? "transition-transform duration-500 ease-out group-hover:scale-110"

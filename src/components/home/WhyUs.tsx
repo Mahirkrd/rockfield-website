@@ -16,7 +16,7 @@ const VALUES: { icon: LucideIcon; title: string; text: string }[] = [
   {
     icon: CalendarCheck,
     title: "On schedule",
-    text: "Programmes are resourced before they are promised — then they are held.",
+    text: "Programmes are resourced before they are promised, then they are held.",
   },
   {
     icon: BadgeCheck,
@@ -26,7 +26,7 @@ const VALUES: { icon: LucideIcon; title: string; text: string }[] = [
   {
     icon: FileText,
     title: "Transparent reporting",
-    text: "Weekly progress, cost and risk reporting you can actually act on.",
+    text: "Weekly progress, cost and risk reporting you can act on.",
   },
 ];
 

@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/ui/Reveal";
-import { MISSION } from "@/data/about";
+import { MissionPrinciples } from "@/components/ui/MissionPrinciples";
+import { COMPANY_MISSION } from "@/data/company";
 
 export function Mission() {
   return (
@@ -16,31 +17,18 @@ export function Mission() {
           </p>
         </Reveal>
 
+        {/* The official mission — one statement site-wide, owned by
+            src/data/company.ts and shared with the Company page. */}
         <Reveal delay={80}>
           <h2
             id="mission-heading"
             className="mt-5 max-w-4xl text-2xl leading-[1.15] sm:mt-6 sm:text-3xl lg:text-4xl"
           >
-            {MISSION.statement}
+            {COMPANY_MISSION.statement}
           </h2>
         </Reveal>
 
-        <dl className="mt-10 grid grid-cols-1 gap-8 sm:mt-12 sm:grid-cols-3 sm:gap-6 lg:gap-8">
-          {MISSION.points.map((point, i) => (
-            <div key={point.title}>
-              <Reveal delay={140 + i * 80}>
-                <div className="border-t border-ink/15 pt-5">
-                  <dt className="font-display text-lg font-bold uppercase leading-tight tracking-tight sm:text-xl">
-                    {point.title}
-                  </dt>
-                  <dd className="mt-2.5 text-sm leading-relaxed text-grey">
-                    {point.text}
-                  </dd>
-                </div>
-              </Reveal>
-            </div>
-          ))}
-        </dl>
+        <MissionPrinciples delay={140} />
       </div>
     </section>
   );

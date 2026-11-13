@@ -1,7 +1,13 @@
-import { Clock, MapPin } from "lucide-react";
+import { Clock, MapPin, Phone } from "lucide-react";
 import { CONTACT } from "@/data/site";
 
 const DETAILS = [
+  {
+    icon: Phone,
+    label: "Main phone",
+    value: CONTACT.phone,
+    href: CONTACT.phoneHref,
+  },
   {
     icon: MapPin,
     label: "Address",
@@ -40,13 +46,15 @@ export function ContactDetails() {
               </dt>
               <dd className="mt-1.5 text-base leading-relaxed">
                 {detail.href ? (
+                  // Padded out to a 44px tap target; the negative margin
+                  // gives the extra height back so the row does not grow.
                   <a
                     href={detail.href}
                     {...(detail.external && {
                       target: "_blank",
                       rel: "noopener noreferrer",
                     })}
-                    className="break-words transition-colors hover:text-amber"
+                    className="-my-2.5 inline-block break-words py-2.5 transition-colors hover:text-amber"
                   >
                     {detail.value}
                     {detail.external && (

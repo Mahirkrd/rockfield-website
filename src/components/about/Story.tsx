@@ -2,7 +2,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SpecPanel } from "@/components/ui/SpecPanel";
 import { PlateImage } from "@/components/ui/PlateImage";
 import { ABOUT_IMAGE } from "@/data/images";
-import { STORY } from "@/data/about";
+import { OUR_COMPANY } from "@/data/company";
 
 export function Story() {
   return (
@@ -21,13 +21,13 @@ export function Story() {
               id="story-heading"
               className="mt-5 max-w-2xl text-3xl leading-[1.02] sm:mt-6 sm:text-4xl lg:text-5xl"
             >
-              Built on fifteen years of team experience.
+              Built on team experience since 2010.
             </h2>
           </Reveal>
 
           <Reveal delay={160}>
             <div className="mt-6 max-w-2xl space-y-5 text-base leading-relaxed text-grey sm:mt-8 sm:text-lg">
-              {STORY.map((paragraph) => (
+              {OUR_COMPANY.map((paragraph) => (
                 <p key={paragraph.slice(0, 32)}>{paragraph}</p>
               ))}
             </div>

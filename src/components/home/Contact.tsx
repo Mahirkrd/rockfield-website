@@ -2,6 +2,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ContactDetails } from "@/components/contact/ContactDetails";
 import { EmailCards } from "@/components/contact/EmailCards";
+import { ENQUIRY_LINE } from "@/data/site";
 
 export function Contact() {
   return (
@@ -35,8 +36,7 @@ export function Contact() {
             <ContactDetails />
 
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-grey">
-              Send us the scope and we will come back with a costed proposal,
-              usually within three working days.
+              {ENQUIRY_LINE}
             </p>
           </Reveal>
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, MapPin, Clock, ArrowUpRight } from "lucide-react";
+import { Mail, MapPin, Clock, Phone, ArrowUpRight } from "lucide-react";
 import { Logo } from "./Logo";
 import { darkSurfaceLogoSrc } from "@/lib/logo";
 import { COMPANY, CONTACT, EMAILS, NAV_LINKS } from "@/data/site";
@@ -26,8 +26,7 @@ export function Footer() {
               {COMPANY.tagline}
             </p>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-paper/60">
-              {COMPANY.name} delivers civil, structural and fit-out work at
-              scale — on programme, on budget, to spec.
+              {COMPANY.coverLine}.
             </p>
           </div>
 
@@ -81,6 +80,20 @@ export function Footer() {
               Contact
             </h2>
             <ul className="mt-5 space-y-4 text-sm text-paper/70">
+              <li className="flex gap-3">
+                <Phone
+                  className="mt-0.5 h-4 w-4 shrink-0 text-grey"
+                  aria-hidden="true"
+                />
+                {/* 44px tap target; the negative margin keeps the row one
+                    text line tall, level with the icon */}
+                <a
+                  href={CONTACT.phoneHref}
+                  className="-my-3 flex min-h-[44px] items-center whitespace-nowrap transition-colors hover:text-amber"
+                >
+                  {CONTACT.phone}
+                </a>
+              </li>
               <li className="flex gap-3">
                 <MapPin
                   className="mt-0.5 h-4 w-4 shrink-0 text-grey"

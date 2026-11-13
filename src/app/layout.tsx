@@ -3,6 +3,7 @@ import { archivo, inter, plexMono } from "./fonts";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { darkSurfaceLogoSrc } from "@/lib/logo";
+import { CONTACT, HEADER_NAV } from "@/data/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,7 +27,18 @@ export default function RootLayout({
       className={`${archivo.variable} ${inter.variable} ${plexMono.variable}`}
     >
       <body className="flex min-h-dvh flex-col bg-concrete font-sans text-ink antialiased">
-        <Header darkLogoSrc={darkSurfaceLogoSrc()} />
+        {/* Nav and contact lines are passed down, so the client header
+            bundles no site data of its own. */}
+        <Header
+          darkLogoSrc={darkSurfaceLogoSrc()}
+          nav={HEADER_NAV}
+          contact={{
+            phone: CONTACT.phone,
+            phoneHref: CONTACT.phoneHref,
+            email: CONTACT.email,
+            emailHref: CONTACT.emailHref,
+          }}
+        />
         <main id="main" className="flex-1">
           {children}
         </main>

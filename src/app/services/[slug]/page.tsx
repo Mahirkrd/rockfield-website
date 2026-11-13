@@ -5,11 +5,11 @@ import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { ServiceIcon } from "@/components/ui/ServiceIcon";
-import { ProjectCard } from "@/components/ui/ProjectCard";
 import { PlateImage } from "@/components/ui/PlateImage";
 import { CtaBand } from "@/components/ui/CtaBand";
+import { CategoryTile } from "@/components/works/CategoryTile";
 import { SERVICES } from "@/data/services";
-import { PROJECTS } from "@/data/projects";
+import { getWorkCategory, type WorkCategory } from "@/data/works";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -37,7 +37,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
   if (!service) notFound();
 
-  const related = PROJECTS.filter((p) => p.serviceIds.includes(service.id));
+  const related = service.works
+    .map((slug) => getWorkCategory(slug))
+    .filter((category): category is WorkCategory => Boolean(category));
   const others = SERVICES.filter((s) => s.id !== service.id);
 
   return (
@@ -129,10 +131,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Related projects */}
+      {/* Related works: the Our Works categories this service draws on */}
       {related.length > 0 && (
         <section
-          id="related-projects"
+          id="related-works"
           aria-labelledby="related-heading"
           className="bg-concrete"
         >
@@ -140,7 +142,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             <Reveal>
               <p className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-grey sm:text-xs">
                 <span aria-hidden className="h-px w-6 bg-amber sm:w-10" />
-                Selected Work
+                Our Works
               </p>
             </Reveal>
 
@@ -149,15 +151,19 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 id="related-heading"
                 className="mt-5 max-w-2xl text-3xl leading-[1.02] sm:mt-6 sm:text-4xl lg:text-5xl"
               >
-                {service.label} in practice.
+                Related works
               </h2>
             </Reveal>
 
-            <ul className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
-              {related.map((project, i) => (
-                <li key={project.id}>
+            {/* Two across on phones, four from sm — the homepage tiles */}
+            <ul className="mt-10 grid grid-cols-2 gap-2 sm:mt-12 sm:grid-cols-4 sm:gap-3">
+              {related.map((category, i) => (
+                <li key={category.slug}>
                   <Reveal delay={120 + i * 70}>
-                    <ProjectCard project={project} figure={i + 1} />
+                    <CategoryTile
+                      category={category}
+                      sizes="(min-width: 1152px) 266px, (min-width: 640px) 23vw, 46vw"
+                    />
                   </Reveal>
                 </li>
               ))}
